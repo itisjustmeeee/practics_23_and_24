@@ -1,58 +1,42 @@
 import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import TechnologyCard from '../components/TechnologyCard';
 import SearchBar from '../components/SearchBar';
 import { useTechnologies } from '../hooks/useTechnologies';
 
 function TechnologyList() {
-  const [technologies, setTechnologies] = useState([]);
+  const { technologies, updateStatus, updateNote } = useTechnologies();
   const [searchQuery, setSearchQuery] = useState('');
 
-  const filtered = technologies.filter(tech =>
-    tech.title.toLowerCase().includes(searchQuery) ||
-    tech.desc.toLowerCase().includes(searchQuery)
+  const filteredTechnologies = technologies.filter(tech =>
+    tech.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    (tech.desc && tech.desc.toLowerCase().includes(searchQuery.toLowerCase())) ||
+    (tech.note && tech.note.toLowerCase().includes(searchQuery.toLowerCase()))
   );
-
-  useEffect(() => {
-    const saved = localStorage.getItem('technologies');
-    if (saved) {
-      setTechnologies(JSON.parse(saved));
-    }
-  }, []);
-
-  const updateStatus = (id) => {
-    setTechnologies(prev => prev.map(t => {
-      if (t.id === id) {
-        const order = ['not-started', 'in-progress', 'completed'];
-        const next = (order.indexOf(t.status) + 1) % 3;
-        return { ...t, status: order[next] };
-      }
-      return t;
-    }));
-  };
-
-  const updateNote = (id, note) => {
-    setTechnologies(prev => prev.map(t => 
-      t.id === id ? { ...t, note } : t
-    ));
-  };
 
   return (
     <div className="page">
       <div className="page-header">
-        <h1>Все технологии</h1>
+        <h1>Все технологии ({technologies.length})</h1>
         <Link to="/add-technology" className="btn btn-primary">
-          +Добавить технологию
+          + Добавить технологию
         </Link>
       </div>
 
+      {/* Поиск */}
       <SearchBar onSearch={setSearchQuery} />
 
+      {/* Список карточек */}
       <div className="tech-grid">
-        {technologies.length === 0 ? (
-          <p className="empty-message">Технологий пока нет. Добавьте первую</p>
+        {filteredTechnologies.length === 0 ? (
+          <p className="empty-message">
+            {searchQuery 
+              ? `Ничего не найдено по запросу "${searchQuery}"`
+              : 'Технологий пока нет. Добавьте первую!'
+            }
+          </p>
         ) : (
-          technologies.map(tech => (
+          filteredTechnologies.map(tech => (
             <TechnologyCard
               key={tech.id}
               tech={tech}
