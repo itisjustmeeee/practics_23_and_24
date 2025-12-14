@@ -1,93 +1,69 @@
-import { useParams, Link, useNavigate } from 'react-router-dom'; 
-import { useState, useEffect } from 'react'; 
+import { useParams, Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import TechnologyCard from '../components/TechnologyCard';
 
-function TechnologyDetail() { 
-    const { techId } = useParams(); 
-    const navigate = useNavigate(); 
-    const [technology, setTechnology] = useState(null);
-    const [loading, setLoading] = useState(true);
-  
-    useEffect(() => { 
-        const saved = localStorage.getItem('technologies'); 
-        if (saved) { 
-            const technologies = JSON.parse(saved); 
-            const tech = technologies.find(t => t.id === parseInt(techId));
-            setTechnology(tech);
-        } 
-    }, [techId]); 
+function TechnologyDetail() {
+  const { techId } = useParams();
+  const [technology, setTechnology] = useState(null);
 
-    const updateStatus = (newStatus) => { 
-        const saved = localStorage.getItem('technologies'); 
-        if (saved) { 
-            const technologies = JSON.parse(saved); 
-            const updated = technologies.map(tech => 
-                tech.id === parseInt(techId) ? { ...tech, status: newStatus } : tech 
-            ); 
-            localStorage.setItem('technologies', JSON.stringify(updated)); 
-            setTechnology({ ...technology, status: newStatus }); 
-        } 
-    }; 
-
-    if (!technology) { 
-        return ( 
-            <div className="page"> 
-                <h1>Технология не найдена</h1> 
-                <p>Технология с ID {techId} не существует.</p> 
-                <Link to="/technologies" className="btn"> 
-                    --- Назад к списку 
-                </Link> 
-            </div> 
-        ); 
+  useEffect(() => {
+    const saved = localStorage.getItem('technologies');
+    if (saved) {
+      const technologies = JSON.parse(saved);
+      const tech = technologies.find(t => t.id === parseInt(techId));
+      setTechnology(tech);
     }
+  }, [techId]);
 
-    return ( 
-        <div className="page"> 
-            <div className="page-header"> 
-                <Link to="/technologies" className="back-link"> 
-                    --- Назад к списку
-                </Link> 
-                <h1>{technology.title}</h1> 
-            </div> 
+  const updateStatus = (id) => {
+    // аналогично как в списке
+    const saved = localStorage.getItem('technologies');
+    if (saved) {
+      const technologies = JSON.parse(saved);
+      const updated = technologies.map(t => {
+        if (t.id === id) {
+          const order = ['not-started', 'in-progress', 'completed'];
+          const next = (order.indexOf(t.status) + 1) % 3;
+          return { ...t, status: order[next] };
+        }
+        return t;
+      });
+      localStorage.setItem('technologies', JSON.stringify(updated));
+      setTechnology(updated.find(t => t.id === parseInt(techId)));
+    }
+  };
 
-            <div className="technology-detail"> 
-                <div className="detail-section"> 
-                    <h3>Описание</h3> 
-                    <p>{technology.description}</p> 
-                </div> 
+  const updateNote = (id, note) => {
+    const saved = localStorage.getItem('technologies');
+    if (saved) {
+      const technologies = JSON.parse(saved);
+      const updated = technologies.map(t => t.id === id ? { ...t, note } : t);
+      localStorage.setItem('technologies', JSON.stringify(updated));
+      setTechnology(updated.find(t => t.id === id));
+    }
+  };
 
-                <div className="detail-section"> 
-                    <h3>Статус изучения</h3> 
-                    <div className="status-buttons"> 
-                        <button 
-                            onClick={() => updateStatus('not-started')} 
-                            className={technology.status === 'not-started' ? 'active' : ''} 
-                        > 
-                            Не начато 
-                        </button> 
-                        <button 
-                            onClick={() => updateStatus('in-progress')}
-                            className={technology.status === 'in-progress' ? 'active' : ''} 
-                        > 
-                            В процессе 
-                        </button> 
-                        <button 
-                            onClick={() => updateStatus('completed')} 
-                            className={technology.status === 'completed' ? 'active' : ''} 
-                        > 
-                            Завершено 
-                        </button> 
-                    </div> 
-                </div>
+  if (!technology) {
+    return (
+      <div className="page">
+        <h1>Технология не найдена</h1>
+        <Link to="/technologies">← Назад</Link>
+      </div>
+    );
+  }
 
-                {technology.notes && ( 
-                    <div className="detail-section"> 
-                        <h3>Мои заметки</h3> 
-                        <p>{technology.notes}</p> 
-                    </div> 
-                )} 
-            </div> 
-        </div> 
-    ); 
+  return (
+    <div className="page">
+      <Link to="/technologies" className="back-link">← Назад к списку</Link>
+      <div className="detail-card">
+        <TechnologyCard
+          tech={technology}
+          onStatusChange={updateStatus}
+          onNoteChange={updateNote}
+        />
+      </div>
+    </div>
+  );
 }
 
-export default TechnologyDetail; 
+export default TechnologyDetail;

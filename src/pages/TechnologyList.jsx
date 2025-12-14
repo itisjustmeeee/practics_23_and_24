@@ -1,51 +1,59 @@
-import { Link } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import TechnologyCard from '../components/TechnologyCard';
 
-function TechnologyList() { 
-    const [technologies, setTechnologies] = useState([]); 
-    useEffect(() => { 
-        const saved = localStorage.getItem('technologies'); 
-        if (saved) { 
-            setTechnologies(JSON.parse(saved)); 
-        } 
-    }, []); 
-    
-    return ( 
-        <div className="page"> 
-            <div className="page-header"> 
-                <h1>Все технологии</h1>
-                <Link to="/add-technology" className="btn btn-primary"> 
-                    + Добавить технологию 
-                </Link> 
-            </div> 
+function TechnologyList() {
+  const [technologies, setTechnologies] = useState([]);
 
-            <div className="technologies-grid"> 
-                {technologies.map(tech => ( 
-                    <div key={tech.id} className="technology-item"> 
-                        <h3>{tech.title}</h3> 
-                        <p>{tech.description}</p> 
-                        <div className="technology-meta"> 
-                            <span className={`status status-${tech.status}`}> 
-                                {tech.status} 
-                            </span> 
-                            <Link to={`/technology/${tech.id}`} className="btn-link"> 
-                                Подробнее ---
-                            </Link> 
-                        </div> 
-                    </div> 
-                ))} 
-            </div> 
+  useEffect(() => {
+    const saved = localStorage.getItem('technologies');
+    if (saved) {
+      setTechnologies(JSON.parse(saved));
+    }
+  }, []);
 
-            {technologies.length === 0 && ( 
-                <div className="empty-state"> 
-                    <p>Технологий пока нет.</p> 
-                    <Link to="/add-technology" className="btn btn-primary"> 
-                        Добавить первую технологию 
-                    </Link> 
-                </div> 
-            )} 
-        </div> 
-    );
+  const updateStatus = (id) => {
+    setTechnologies(prev => prev.map(t => {
+      if (t.id === id) {
+        const order = ['not-started', 'in-progress', 'completed'];
+        const next = (order.indexOf(t.status) + 1) % 3;
+        return { ...t, status: order[next] };
+      }
+      return t;
+    }));
+  };
+
+  const updateNote = (id, note) => {
+    setTechnologies(prev => prev.map(t => 
+      t.id === id ? { ...t, note } : t
+    ));
+  };
+
+  return (
+    <div className="page">
+      <div className="page-header">
+        <h1>Все технологии</h1>
+        <Link to="/add-technology" className="btn btn-primary">
+          + Добавить технологию
+        </Link>
+      </div>
+
+      <div className="tech-grid">
+        {technologies.length === 0 ? (
+          <p className="empty-message">Технологий пока нет. Добавьте первую!</p>
+        ) : (
+          technologies.map(tech => (
+            <TechnologyCard
+              key={tech.id}
+              tech={tech}
+              onStatusChange={updateStatus}
+              onNoteChange={updateNote}
+            />
+          ))
+        )}
+      </div>
+    </div>
+  );
 }
 
-export default TechnologyList; 
+export default TechnologyList;
