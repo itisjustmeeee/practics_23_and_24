@@ -44,7 +44,7 @@ function Settings() {
             </section>
 
             <button className="btn" onClick={() => navigate(-1)}>
-                --- Назад
+                Назад
             </button>
         </div>
     );
