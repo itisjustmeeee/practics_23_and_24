@@ -34,13 +34,13 @@ function TechnologyList() {
       <div className="page-header">
         <h1>Все технологии</h1>
         <Link to="/add-technology" className="btn btn-primary">
-          + Добавить технологию
+          +Добавить технологию
         </Link>
       </div>
 
       <div className="tech-grid">
         {technologies.length === 0 ? (
-          <p className="empty-message">Технологий пока нет. Добавьте первую!</p>
+          <p className="empty-message">Технологий пока нет. Добавьте первую</p>
         ) : (
           technologies.map(tech => (
             <TechnologyCard

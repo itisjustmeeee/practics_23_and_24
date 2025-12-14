@@ -6,6 +6,7 @@ import {
   Legend
 } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
+import { color } from 'chart.js/helpers';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -37,7 +38,7 @@ function StatisticsPage() {
     datasets: [
       {
         data: [statusCount['not-started'], statusCount['in-progress'], statusCount.completed],
-        backgroundColor: ['#fca5a5', '#60a5fa', '#4ade80'],
+        backgroundColor: ['#e84040ff', '#3184e9ff', '#71ec4eff'],
         borderColor: ['#fff'],
         borderWidth: 2,
       },

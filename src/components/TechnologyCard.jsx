@@ -1,12 +1,12 @@
 
 const statusConfig = {
-  'completed': { label: 'DONE', color: '#4ade80' },
-  'in-progress': { label: 'LOADING', color: '#60a5fa' },
-  'not-started': { label: 'NOT STARTED', color: '#fca5a5' }
+  'completed': { label: 'DONE', color: '#71ec4eff' },
+  'in-progress': { label: 'LOADING', color: '#3184e9ff' },
+  'not-started': { label: 'NOT STARTED', color: '#e84040ff' }
 };
 
 function TechnologyCard({ tech, onStatusChange, onNoteChange }) {
-  const { label, color } = statusConfig[tech.status] || statusConfig['not-started'];
+  const { label, color } = statusConfig[tech.status] || ` --- `  || statusConfig['not-started'];
 
   return (
     <div

@@ -44,6 +44,14 @@ function Navigation() {
             Статистика
           </Link>
         </li>
+        <li>
+            <Link 
+                to="/settings" 
+                className={location.pathname === '/settings' ? 'active' : ''}
+            >
+                Настройки
+            </Link>
+        </li>
       </ul>
     </nav>
   );

@@ -6,6 +6,7 @@ import TechnologyList from './pages/TechnologyList';
 import TechnologyDetail from './pages/TechnologyDetail';
 import AddTechnology from './pages/AddTechnology';
 import Statistics from './pages/Statistics';
+import Settings from './pages/Settings';
 
 function App() {
   return (
@@ -18,8 +19,9 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/technologies" element={<TechnologyList />} />
             <Route path="/technology/:techId" element={<TechnologyDetail />} />
-            <Route path="/add-technology" element={<AddTechnology />} />   // ← новый маршрут
+            <Route path="/add-technology" element={<AddTechnology />} />
             <Route path="/statistics" element={<Statistics />} />
+            <Route path="/settings" element={<Settings />} />
             <Route path="*" element={<h1>404 — Страница не найдена</h1>} />
           </Routes>
         </main>

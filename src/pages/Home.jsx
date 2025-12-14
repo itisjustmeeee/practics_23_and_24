@@ -4,7 +4,7 @@ function Home() {
   return (
     <div className="page home-page">
       <div className="hero-section">
-        <h1>Добро пожаловать в Трекер технологий!</h1>
+        <h1>Добро пожаловать в Трекер технологий ^-^</h1>
         <p className="hero-description">
           Управляй своим обучением: отслеживай прогресс, добавляй заметки, 
           отмечай статусы и экспортируй данные.
@@ -14,7 +14,7 @@ function Home() {
             Перейти к списку технологий
           </Link>
           <Link to="/add-technology" className="btn btn-secondary">
-            + Добавить новую технологию
+             +Добавить новую технологию
           </Link>
         </div>
       </div>
@@ -28,7 +28,7 @@ function Home() {
           </div>
           <div className="feature-card">
             <h3>Заметки</h3>
-            <p>Пиши свои мысли, ссылки и прогресс по каждой технологии</p>
+            <p>Пиши мысли, ссылки и прогресс по каждой технологии</p>
           </div>
           <div className="feature-card">
             <h3>Сохранение данных</h3>
@@ -36,7 +36,7 @@ function Home() {
           </div>
           <div className="feature-card">
             <h3>Экспорт</h3>
-            <p>Скачивай свои технологии в JSON одним кликом</p>
+            <p>Скачивай технологии в JSON</p>
           </div>
         </div>
       </div>

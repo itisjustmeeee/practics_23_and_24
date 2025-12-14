@@ -47,14 +47,14 @@ function TechnologyDetail() {
     return (
       <div className="page">
         <h1>Технология не найдена</h1>
-        <Link to="/technologies">← Назад</Link>
+        <Link to="/technologies">--- Назад</Link>
       </div>
     );
   }
 
   return (
     <div className="page">
-      <Link to="/technologies" className="back-link">← Назад к списку</Link>
+      <Link to="/technologies" className="back-link">--- Назад к списку</Link>
       <div className="detail-card">
         <TechnologyCard
           tech={technology}
