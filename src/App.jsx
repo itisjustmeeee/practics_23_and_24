@@ -19,7 +19,7 @@ function App() {
             <Route path="/technologies" element={<TechnologyList />} />
             <Route path="/technology/:techId" element={<TechnologyDetail />} />
             <Route path="/add-technology" element={<AddTechnology />} />   // ← новый маршрут
-            <Route path="/statistics" element={<StatisticsPage />} />
+            <Route path="/statistics" element={<Statistics />} />
             <Route path="*" element={<h1>404 — Страница не найдена</h1>} />
           </Routes>
         </main>
