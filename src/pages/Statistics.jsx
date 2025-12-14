@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import {Chart as ChartJS, ArcElement, Tooltip, Legend} from 'chart.js';
-import {Pie} from 'react-chart.js-2';
+import {Pie} from 'react-chartjs-2';
 import plugin from "eslint-plugin-react-hooks";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
