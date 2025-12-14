@@ -454,3 +454,18 @@
     min-height: 80px;
   }
 }
+
+.tech-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  justify-content: center;
+  max-width: 1400px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.tech-grid > * {
+  flex: 1 1 350px;
+  max-width: 400px;
+}
