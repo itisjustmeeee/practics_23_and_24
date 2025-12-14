@@ -295,3 +295,18 @@
   margin-bottom: 20px;
 }
 
+.api-loader-section,
+.manual-add-section {
+  margin-bottom: 50px;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+}
+
+.api-loader-section h2,
+.manual-add-section h2 {
+  margin-top: 0;
+  font-size: 1.8em;
+  color: #fbbf24;
+}

@@ -34,6 +34,15 @@ function Settings() {
                 <button className="btn btn-primary" onClick={exportData}>
                     Экспорт данных (JSON)
                 </button>
+                <button onClick={() => {
+                    if (confirm('Очистить все данные?')) {
+                        localStorage.clear();
+                        alert('localStorage очищен! Перезагрузите страницу.');
+                        window.location.reload();
+                    }
+                }}>
+                    Очистить localStorage
+                </button>
             </section>
 
             <section className="settings-section">
