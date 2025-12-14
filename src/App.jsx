@@ -14,7 +14,7 @@ function App() {
       <div className="App">
         <Navigation />
 
-        <main className="tech-grid">
+        <main className="main-content">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/technologies" element={<TechnologyList />} />

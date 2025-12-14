@@ -454,24 +454,3 @@
     min-height: 80px;
   }
 }
-
-.tech-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 32px;
-  max-width: 1400px;
-  margin: 40px auto;
-  padding: 0 20px;
-}
-
-.tech-grid > * {
-  justify-self: center;
-}
-
-@media (max-width: 768px) {
-  .tech-grid {
-    grid-template-columns: 1fr;
-    gap: 24px;
-    padding: 0 16px;
-  }
-}
